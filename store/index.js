@@ -2,7 +2,8 @@ const siteURL = "http://localhost/wp-vue/cms/"
 
 export const state = () => ({
   posts: [],
-  tags: []
+  tags: [],
+  categories : [] ,
 })
 
 export const mutations = {
@@ -11,6 +12,9 @@ export const mutations = {
   },
   updateTags: (state, tags) => {
     state.tags = tags
+  },
+  updateCats: (state, cats) => {
+    state.categories = cats
   }
 }
 
@@ -25,13 +29,14 @@ export const actions = {
 
       posts = posts
         .filter(el => el.status === "publish")
-        .map(({ id, slug, title, excerpt, date, tags, content, uagb_author_info: { display_name } }) => ({
+        .map(({ id, slug, title, excerpt, date, tags, content,categories, uagb_author_info: { display_name } }) => ({
           id,
           slug : decodeURIComponent(slug),
           title,
           excerpt,
           date,
           tags,
+          categories,
           content,
           display_name
         }))
@@ -42,6 +47,8 @@ export const actions = {
       console.log(err)
     }
   },
+
+
   async getTags({ state, commit }) {
     if (state.tags.length) return
 
@@ -61,6 +68,29 @@ export const actions = {
       }))
 
       commit("updateTags", tags)
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  async getCats({ state, commit }) {
+    if (state.categories.length) return
+
+    let allCats = state.posts.reduce((acc, item) => {
+      return acc.concat(item.categories)
+    }, [])
+    allCats = allCats.join()
+
+    try {
+      let categories = await fetch(
+        `${siteURL}/wp-json/wp/v2/categories?page=1&per_page=40&include=${allCats}`
+      ).then(res => res.json())
+
+      categories = categories.map(({ id, name }) => ({
+        id,
+        name
+      }))
+
+      commit("updateCats", categories)
     } catch (err) {
       console.log(err)
     }

@@ -8,7 +8,7 @@
                 <li>
                 <nuxt-link to="/blog">بلاگ</nuxt-link>
                 </li>
-                <li><a href="/portfolio.html">نمونه کار ها</a></li>
+                <li><nuxt-link to="/portfolio">نمونه کار ها</nuxt-link></li>
             </ul>
             </div>
         </header>

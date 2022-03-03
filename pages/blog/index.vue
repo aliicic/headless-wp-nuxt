@@ -4,7 +4,7 @@
         <section class="section-01-00">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4" v-for="post in posts" :key="post.id">
+                    <div class="col-lg-4" v-for="post in sortedPosts" :key="post.id">
                      <nuxt-link :to="{ name : 'blog-slug' , params : { slug : post.slug } }">
                         <div class="blog-item p-4">
                             <span class="date">{{ post.date}}</span>
@@ -44,10 +44,10 @@ export default {
     tags() {
       return this.$store.state.tags;
     },
-    // sortedPosts() {
-    //   if (!this.selectedTag) return this.posts;
-    //   return this.posts.filter(el => el.tags.includes(this.selectedTag));
-    // }
+    sortedPosts() {
+     // if (!this.selectedTag) return this.posts;
+      return this.posts.filter(el => el.categories.includes(1));
+    }
   },
   created() {
     this.$store.dispatch("getPosts");
