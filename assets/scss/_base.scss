@@ -1,0 +1,9 @@
+$color-primary :#e6e7ee ;
+$color-secondary: #ededed;
+
+body {
+    background-color: $color-secondary!important;
+    direction: rtl;
+    font-family: $font!important;
+    text-align: right;
+}
