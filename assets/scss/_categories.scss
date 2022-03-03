@@ -1,0 +1,23 @@
+.section-01-00{
+
+  .tags-list {
+    ul {
+      display: flex;
+
+      li{
+        margin: 5px;
+        display: inline;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .active{
+    color: #31344b;
+    background-color: #e6e7ee;
+    border-color: #e6e7ee;
+    box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #fff;
+    text-decoration: none;
+      }
+    }
+  }
+
+}

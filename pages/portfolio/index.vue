@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4" v-for="post in sortedPosts" :key="post.id">
-                    <nuxt-link :to="{ name : 'blog-slug' , params : { slug : post.slug } }">
+                    <nuxt-link :to="{ name : 'portfolio-id' , params : { id : post.id } }" style="text-decoration:none">
                         <div class="portfolio-item">
                             <div class="img-frame">
                                 <img src="https://demo.themesberg.com/neumorphism-ui/assets/img/blog/blog-article-1.jpg" alt="">
@@ -17,7 +17,7 @@
                                 <span class="description">
                                     خلاصه موضوع اول
                                 </span>
-                                <a class="neobtn" href="">جزئیات</a>
+                                <!-- <a class="neobtn" href="">جزئیات</a> -->
                             </div>
                         </div>
                     </nuxt-link>
@@ -55,7 +55,10 @@ export default {
 
     created() {
         this.$store.dispatch("getPosts");
+        
     },
+
+
 
 }
 </script>
