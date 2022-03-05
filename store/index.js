@@ -1,4 +1,4 @@
-const siteURL = "http://localhost/wp-vue/cms/"
+const siteURL = "https://cmsnuxt.nebular.ir"
 
 export const state = () => ({
   posts: [],
@@ -29,7 +29,7 @@ export const actions = {
 
       posts = posts
         .filter(el => el.status === "publish")
-        .map(({ id, slug, title, excerpt, date, tags, content,categories, uagb_author_info: { display_name } }) => ({
+        .map(({ id, slug, title, excerpt, date, tags, content,categories, uagb_author_info: { display_name } , uagb_excerpt ,uagb_featured_image_src:{full} } ) => ({
           id,
           slug : decodeURIComponent(slug),
           title,
@@ -38,7 +38,9 @@ export const actions = {
           tags,
           categories,
           content,
-          display_name
+          display_name,
+          uagb_excerpt,
+          img : full[0]
         }))
 
 

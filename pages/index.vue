@@ -69,10 +69,11 @@
     </section>
     <section class="section-00-02">
         <div class="container">
-
-            <form class="row g-3" @submit.prevent="">
                 <h4 class="title">تماس با ما</h4>
                 <p class="text-center mb-5">اگر نیاز به مشاوره فرم رو زیر رو تکمیل و ارسال کنید ، ما با شما تماس میگیریم</p>
+
+            <form class="row g-3" @submit.prevent="">
+
                 <div class="col-md-6">
                     <label for="inputEmail4" class="form-label">نام</label>
                     <input type="text" v-model="contactForm['text-name']" class="form-control" id="inputEmail4">
@@ -108,44 +109,25 @@
             <h4 class="title">وبلاگ</h4>
             <p class="text-center mb-5">سعی میکنیم در این قسمت محتوای باکیفیت در زمینه طرحی و توسعه وب قرار دهیم</p>
             <div class="row mb-3">
-                <div class="col-lg-4">
-                    <div class="blog-item p-4">
-                        <span class="date">تاریخ</span>
-                        <h4 class="title">
-                            عنوان اول
-                        </h4>
-                        <span class="description">
-                            خلاصه موضوع اول
-                        </span>
-                        <span class="author">نام نویسنده</span>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="blog-item p-4">
-                        <span class="date">تاریخ</span>
-                        <h4 class="title">
-                            عنوان اول
-                        </h4>
-                        <span class="description">
-                            خلاصه موضوع اول
-                        </span>
-                        <span class="author">نام نویسنده</span>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="blog-item p-4">
-                        <span class="date">تاریخ</span>
-                        <h4 class="title">
-                            عنوان اول
-                        </h4>
-                        <span class="description">
-                            خلاصه موضوع اول
-                        </span>
-                        <span class="author">نام نویسنده</span>
-                    </div>
+               <div class="col-lg-4" v-for="post in posts" :key="post.id">
+                    <nuxt-link :to="{ name : 'blog-slug' , params : { slug : post.slug } }" style="text-decoration:none">
+                        <div class="blog-item p-4">
+                            <span class="date">{{ post.date}}</span>
+                            <h4 class="title">
+                                {{post.title.rendered}}
+                            </h4>
+                            <!-- <span class="description">
+                                خلاصه موضوع اول
+                            </span> -->
+                            <span class="author">
+                                {{post.display_name}}
+                            </span>
+                        </div>
+                    </nuxt-link>
                 </div>
             </div>
-            <a href="" class="neobtn mx-auto ">همه موارد</a>
+            <nuxtLink to="/blog" class="neobtn mx-auto ">همه موارد</nuxtLink>
+
         </div>
     </section>
     <section class="section-00-04">
@@ -213,7 +195,7 @@ export default {
     },
     computed: {
         posts() {
-            return this.$store.state.posts;
+            return this.$store.state.posts.slice(0,3);
         },
         tags() {
             return this.$store.state.tags;
@@ -229,7 +211,7 @@ export default {
        this.loading = true
           try{
 
-            const { message }  =  await  this.$axios.$post('https://nebular.ir/wp-json/contact-form-7/v1/contact-forms/13/feedback', this.contactForm,
+            const { message }  =  await  this.$axios.$post('https://cmsnuxt.nebular.ir/wp-json/contact-form-7/v1/contact-forms/5/feedback', this.contactForm,
 
                 {
                     headers: {
@@ -253,6 +235,7 @@ export default {
 
     },
     created() {
+          this.$store.dispatch("getPosts");
         // this.$store.dispatch("getCats");
     },
 

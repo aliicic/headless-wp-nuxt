@@ -5,22 +5,23 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4" v-for="post in sortedPosts" :key="post.id">
-                    <nuxt-link :to="{ name : 'portfolio-id' , params : { id : post.id } }" style="text-decoration:none">
+                    <a :href="post.uagb_excerpt" target="_blank" rel="noreferrer" style="text-decoration:none">
                         <div class="portfolio-item">
                             <div class="img-frame">
-                                <img src="https://demo.themesberg.com/neumorphism-ui/assets/img/blog/blog-article-1.jpg" alt="">
+                                <img :src="post.img" alt="">
                             </div>
                             <div class="content-frame">
-                                <h4 class="title">
+                                <h6 class="title">
                                         {{post.title.rendered}}
-                                </h4>
+                                </h6>
                                 <span class="description">
-                                    خلاصه موضوع اول
+
                                 </span>
+                                <!-- <span class="date">{{ post.date}}</span> -->
                                 <!-- <a class="neobtn" href="">جزئیات</a> -->
                             </div>
                         </div>
-                    </nuxt-link>
+                    </a>
                 </div>
 
             </div>
@@ -47,7 +48,7 @@ export default {
         },
      sortedPosts() {
 
-       return  this.posts.filter(el => el.categories.includes(23));
+       return  this.posts.filter(el => el.categories.includes(2));
 
         }
     },
@@ -55,7 +56,7 @@ export default {
 
     created() {
         this.$store.dispatch("getPosts");
-        
+
     },
 
 
