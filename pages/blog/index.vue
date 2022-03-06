@@ -10,9 +10,11 @@
                 </li>
             </ul>
         </div>
+
         <div class="container">
             <div class="row">
-                <div class="col-lg-4" v-for="post in sortedPosts" :key="post.id">
+            <transition-group name="list-complete" tag="p">
+                <div class="col-lg-4 list-complete-item" v-for="post in sortedPosts" :key="post.id">
                     <nuxt-link :to="{ name : 'blog-slug' , params : { slug : post.slug } }" style="text-decoration:none">
                         <div class="blog-item p-4">
                             <span class="date">{{ post.date}}</span>
@@ -28,9 +30,10 @@
                         </div>
                     </nuxt-link>
                 </div>
-
+            </transition-group>
             </div>
         </div>
+
 
         <!-- <button @click="$fetch">دریافت اطلاعات</button> -->
         <p v-if="$fetchState.pending">درحال بارگذاری اطلاعات</p>
@@ -85,3 +88,18 @@ export default {
 
 }
 </script>
+<style>
+.list-complete-item {
+  transition: all 1s;
+  display: inline-block;
+  /* margin-right: 10px; */
+}
+.list-complete-enter, .list-complete-leave-to
+/* .list-complete-leave-active below version 2.1.8 */ {
+  opacity:0;
+  /* transform: translateY(30px); */
+}
+.list-complete-leave-active {
+  position: absolute;
+}
+</style>
