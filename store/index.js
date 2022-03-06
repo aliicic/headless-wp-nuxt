@@ -50,7 +50,6 @@ export const actions = {
     }
   },
 
-
   async getTags({ state, commit }) {
     if (state.tags.length) return
 
@@ -74,6 +73,8 @@ export const actions = {
       console.log(err)
     }
   },
+
+
   async getCats({ state, commit }) {
     if (state.categories.length) return
 

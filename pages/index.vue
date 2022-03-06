@@ -84,7 +84,7 @@
                 </div>
                 <div class="col-6">
                     <label for="inputAddress" class="form-label">ایمیل</label>
-                    <input type="email" v-model="contactForm['email-address']" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                    <input type="email" v-model="contactForm['email-address']" class="form-control" id="inputAddress">
                 </div>
                 <div class="col-6">
                     <label for="inputAddress2" class="form-label">موضوع</label>

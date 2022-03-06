@@ -31,6 +31,12 @@
 
             </div>
         </div>
+
+        <!-- <button @click="$fetch">دریافت اطلاعات</button> -->
+        <p v-if="$fetchState.pending">درحال بارگذاری اطلاعات</p>
+         <p v-else-if="$fetchState.error">Error while fetching mountains</p>
+        <!-- <button @click="$fetch">Refresh</button> -->
+
     </section>
     <Footer />
 </main>
@@ -42,7 +48,7 @@ export default {
     data: () => ({
 
         selectedTag: null,
-        activeClass: "active"
+        activeClass: "active",
 
     }),
 
@@ -52,7 +58,7 @@ export default {
         }
     },
     computed: {
-        posts() {
+       posts() {
             return this.$store.state.posts;
         },
         tags() {
@@ -63,9 +69,9 @@ export default {
             return this.posts.filter(el => el.categories.includes(1) && el.tags.includes(this.selectedTag));
         }
     },
-    created() {
-        this.$store.dispatch("getPosts");
-        this.$store.dispatch("getTags");
+     async fetch() {
+       await this.$store.dispatch("getPosts")
+       await this.$store.dispatch("getTags");
     },
     methods: {
         updateTag(tag) {
